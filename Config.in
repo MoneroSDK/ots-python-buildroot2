@@ -1,0 +1,8 @@
+config BR2_PACKAGE_PYTHON_MONERO_OTS
+    bool "python-monero-ots"
+    select BR2_PACKAGE_MONERO_OTS
+    select BR2_PACKAGE_PYTHON_CFFI
+    help
+  Python library for Monero OTS
+
+      https://github.com/MoneroSDK/python-ots
