@@ -8,7 +8,7 @@ DL_URL := https://github.com/MoneroSDK/ots-python/archive/refs/tags/$(TAR)
 default: hash
 
 $(TAR):
-	@wget -L -o $(TAR) "$(DL_URL)"
+	@wget -L -O $(TAR) "$(DL_URL)"
 
 $(HASH_FILE): $(TAR)
 	@echo -n 'sha256  ' > $(HASH_FILE)
