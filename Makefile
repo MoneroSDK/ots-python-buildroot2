@@ -1,7 +1,7 @@
 VERSION := $(shell grep 'PYTHON_MONERO_OTS_VERSION '  python-monero-ots.mk | awk -F' = ' '{print $$2}')
 TAG := v$(VERSION)
 TAR := $(TAG).tar.gz
-TARGET := python-monero-ots-$(TAR)
+TARGET := python-monero-ots-$(VERSION).tar.gz
 HASH_FILE := python-monero-ots.hash
 DL_URL := https://github.com/MoneroSDK/ots-python/archive/refs/tags/$(TAR)
 
