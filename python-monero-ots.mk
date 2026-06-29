@@ -11,6 +11,20 @@ PYTHON_MONERO_OTS_SETUP_TYPE = setuptools
 PYTHON_MONERO_OTS_LICENSE = BipCot
 
 PYTHON_MONERO_OTS_ENV = OTS_INCLUDE_PATH=$(TARGET_DIR)/usr/include
-PYTHON_MONERO_OTS_ENV += OTS_LIBRARY_PATH=$(TARGET_DIR)/usr/include
+PYTHON_MONERO_OTS_ENV += OTS_LIBRARY_PATH=$(TARGET_DIR)/usr/lib
+
+# Dirty quick fix to get the libmonero-ots.so into the build dir.
+MONERO_OTS_BUILD_DIR := $(strip $(shell find $(BUILD_DIR) -maxdepth 1 -type d -name 'monero-ots-*' | head -n 1))
+
+ifeq ($(MONERO_OTS_BUILD_DIR),)
+$(error Could not find monero-ots build dir under $(BUILD_DIR))
+endif
+
+# Dirty quick fix to get the libmonero-ots.so into the build dir.
+define PYTHON_MONERO_OTS_PRE_CONFIGURE
+	$(INSTALL) -d $(@D)/include $(@D)/lib
+	# $(INSTALL) -m 0644 $(MONERO_OTS_BUILD_DIR)/ots/include/ots*.h $(@D)/include/ 2>/dev/null || true
+	cp -L $(MONERO_OTS_BUILD_DIR)/ots/libmonero-ots.so* $(@D)/ 2>/dev/null || true
+endef
 
 $(eval $(python-package))
